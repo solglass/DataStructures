@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using Homework;
 
 
@@ -173,20 +172,42 @@ namespace DataStructures
         }
 
         public void Reverse()
-        { _array = OrderOperations.ReverseTheArray(_array); }
+        {
+            int[] newArray = new int[Lenght];
+            Array.Copy(_array, newArray, Lenght);
+            _array = OrderOperations.ReverseTheArray(newArray); 
+        }
         public int FindMinElementOfTheArray()
-        { return MathOperations.FindMinElementOfTheArray(_array); }
+        {
+            int[] newArray = new int[Lenght];
+            Array.Copy(_array, newArray, Lenght);
+            return MathOperations.FindMinElementOfTheArray(newArray); }
         public int FindIndexOfMinElementOfTheArray()
-        { return MathOperations.FindIndexOfMinElementOfTheArray(_array); }
+        {
+            int[] newArray = new int[Lenght];
+            Array.Copy(_array, newArray, Lenght);
+            return MathOperations.FindIndexOfMinElementOfTheArray(newArray); }
         public int FindMaxElementOfTheArray()
-        { return MathOperations.FindMaxElementOfTheArray(_array); }
+        {
+            int[] newArray = new int[Lenght];
+            Array.Copy(_array, newArray, Lenght);
+            return MathOperations.FindMaxElementOfTheArray(newArray); }
         public int FindIndexOfMaxElementOfTheArray()
-        { return MathOperations.FindIndexOfMaxElementOfTheArray(_array); }
+        {
+            int[] newArray = new int[Lenght];
+            Array.Copy(_array, newArray, Lenght);
+            return MathOperations.FindIndexOfMaxElementOfTheArray(newArray); }
 
         public void SortArrayDesc()
-        { _array = OrderOperations.BubbleSortTheArrayDesc(_array); }
+        {
+            int[] newArray = new int[Lenght];
+            Array.Copy(_array, newArray, Lenght);
+            _array = OrderOperations.BubbleSortTheArrayDesc(newArray); }
         public void SortArrayAsc()
-        { _array = OrderOperations.InsertSortTheArrayAsc(_array); }
+        {
+            int[] newArray = new int[Lenght];
+            Array.Copy(_array, newArray, Lenght);
+            _array = OrderOperations.InsertSortTheArrayAsc(newArray); }
 
 
         public override bool Equals(object obj)
