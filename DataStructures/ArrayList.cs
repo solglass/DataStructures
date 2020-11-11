@@ -24,6 +24,41 @@ namespace DataStructures
             Lenght = 0;
         }
 
+        public ArrayList(int[] array)
+        {
+            _array = new int[(int)(array.Length * 1.33) + 1];
+            Array.Copy(array, _array, array.Length);
+            Lenght = array.Length;
+        }
+
+        public ArrayList(int elem)
+        {
+            _array = new int[9];
+            _array[0] = elem;
+            Lenght = 1;
+        }
+
+        public int this[int index]
+        {
+            get
+            {
+                if (index > Lenght - 1 || index < 0)
+                {
+                   throw new IndexOutOfRangeException();
+                }
+                return _array[index];
+            }
+            set
+            {
+                if (index > Lenght - 1 || index < 0)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                _array[index] = value;
+            }
+        }
+
+
         public void Add(int value)
         {
             if (_TrueLenght <= Lenght)
@@ -42,15 +77,15 @@ namespace DataStructures
 
         public void AddAtPosition(int value, int index)
         {
-            if (index >= Lenght)
+            if (index >= Lenght || index < 0)
             {
-                throw new Exception("Index " + index + " is out of bounds ");
+               throw new IndexOutOfRangeException();
             }
             else { IncreaseArrayByOneElement(index, value); }
 
         }
 
-        public void AddArray(int[] arr)
+        public void Add(int[] arr)
         {
             for (int i = 0; i < arr.Length; i++)
             {
@@ -59,7 +94,7 @@ namespace DataStructures
         }
 
 
-        public void AddArrayFirst(int[] arr)
+        public void AddFirst(int[] arr)
         {
             for (int i = arr.Length - 1; i >= 0; i--)
             {
@@ -67,7 +102,7 @@ namespace DataStructures
             }
         }
 
-        public void AddArrayAtPosition(int[] arr, int index)
+        public void AddAtPosition(int[] arr, int index)
         {
             for (int i = arr.Length - 1; i >= 0; i--)
             {
@@ -80,9 +115,9 @@ namespace DataStructures
         { DecreaseArrayByOneElement(Lenght - 1); }
         public void DeleteByIndex(int index)
         {
-            if (index >= Lenght)
+            if (index >= Lenght || index < 0)
             {
-                throw new Exception("Index " + index + " is out of bounds ");
+               throw new IndexOutOfRangeException();
             }
             DecreaseArrayByOneElement(index);
         }
@@ -110,7 +145,7 @@ namespace DataStructures
             {
                 for (int i = 0; i < number; i++) { DeleteLast(); }
             }
-            else throw new Exception("Cannot delete less than 1 element");
+            else throw new ArgumentException("Cannot delete less than 1 element");
 
         }
 
@@ -120,7 +155,7 @@ namespace DataStructures
             {
                 for (int i = 0; i < number; i++) { DeleteFirst(); }
             }
-            else throw new Exception("Cannot delete less than 1 element");
+            else throw new ArgumentException("Cannot delete less than 1 element");
 
         }
         public void DeleteElementsAtPosition(int index, int number)
@@ -131,7 +166,7 @@ namespace DataStructures
                 else if (index == Lenght - 1) { DeleteLastElements(number); }
                 else for (int i = 0; i < number; i++) { DeleteByIndex(index); }
             }
-            else throw new Exception("Cannot delete less than 1 element");
+            else throw new ArgumentException("Cannot delete less than 1 element");
 
         }
 
@@ -140,11 +175,11 @@ namespace DataStructures
 
         public int GetElement(int index)
         {
-            if (index < Lenght - 1)
+            if (index < Lenght - 1 && index >= 0)
             {
                 return _array[index];
             }
-            else throw new Exception("Index " + index + " is out of bounds ");
+            else throw new IndexOutOfRangeException();
         }
         public int GetIndex(int element)
         {
@@ -164,50 +199,56 @@ namespace DataStructures
 
         public void ChangeElement(int index, int element)
         {
-            if (index < Lenght - 1)
+            if (index < Lenght - 1 || index >= 0)
             {
                 _array[index] = element;
             }
-            else throw new Exception("Index " + index + " is out of bounds ");
+            else throw new IndexOutOfRangeException();
         }
 
         public void Reverse()
         {
             int[] newArray = new int[Lenght];
             Array.Copy(_array, newArray, Lenght);
-            _array = OrderOperations.ReverseTheArray(newArray); 
+            _array = OrderOperations.ReverseTheArray(newArray);
         }
         public int FindMinElementOfTheArray()
         {
             int[] newArray = new int[Lenght];
             Array.Copy(_array, newArray, Lenght);
-            return MathOperations.FindMinElementOfTheArray(newArray); }
+            return MathOperations.FindMinElementOfTheArray(newArray);
+        }
         public int FindIndexOfMinElementOfTheArray()
         {
             int[] newArray = new int[Lenght];
             Array.Copy(_array, newArray, Lenght);
-            return MathOperations.FindIndexOfMinElementOfTheArray(newArray); }
+            return MathOperations.FindIndexOfMinElementOfTheArray(newArray);
+        }
         public int FindMaxElementOfTheArray()
         {
             int[] newArray = new int[Lenght];
             Array.Copy(_array, newArray, Lenght);
-            return MathOperations.FindMaxElementOfTheArray(newArray); }
+            return MathOperations.FindMaxElementOfTheArray(newArray);
+        }
         public int FindIndexOfMaxElementOfTheArray()
         {
             int[] newArray = new int[Lenght];
             Array.Copy(_array, newArray, Lenght);
-            return MathOperations.FindIndexOfMaxElementOfTheArray(newArray); }
+            return MathOperations.FindIndexOfMaxElementOfTheArray(newArray);
+        }
 
         public void SortArrayDesc()
         {
             int[] newArray = new int[Lenght];
             Array.Copy(_array, newArray, Lenght);
-            _array = OrderOperations.BubbleSortTheArrayDesc(newArray); }
+            _array = OrderOperations.BubbleSortTheArrayDesc(newArray);
+        }
         public void SortArrayAsc()
         {
             int[] newArray = new int[Lenght];
             Array.Copy(_array, newArray, Lenght);
-            _array = OrderOperations.InsertSortTheArrayAsc(newArray); }
+            _array = OrderOperations.InsertSortTheArrayAsc(newArray);
+        }
 
 
         public override bool Equals(object obj)
@@ -233,7 +274,7 @@ namespace DataStructures
 
         public override int GetHashCode()
         {
-            return -1521134295 * (-1521134295 * (-1521134295  + EqualityComparer<Array>.Default.GetHashCode(this._array)) 
+            return -1521134295 * (-1521134295 * (-1521134295 + EqualityComparer<Array>.Default.GetHashCode(this._array))
                 + EqualityComparer<int>.Default.GetHashCode(this.Lenght)) + EqualityComparer<int>.Default.GetHashCode(this._TrueLenght);
         }
 
@@ -257,11 +298,11 @@ namespace DataStructures
             int copyFromIndex = index + 1;
             int[] newArray = new int[_TrueLenght];
             Array.Copy(_array, newArray, _TrueLenght);
-            if (index < Lenght - 1)
+            if (index < Lenght - 1 && index >= 0)
             {
                 Array.Copy(_array, copyFromIndex, newArray, index, Lenght - copyFromIndex);
             }
-            else throw new Exception("Index " + index + " is out of bounds ");
+            else throw new IndexOutOfRangeException();
             newArray[Lenght - 1] = 0;
             Lenght--;
             _array = newArray;
