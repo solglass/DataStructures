@@ -111,6 +111,17 @@ namespace NUnitTestProjectDataStructures
                 Assert.AreEqual(expected, actual);
             }
 
+            [TestCase(1,-1)]
+            [TestCase(2,-2)]
+            [TestCase(3,-3)]
+            [TestCase(4,-4)]
+            public void GetElementNegativeTest(int arrayMockNumber, int index)
+            {
+                int[] a = GetArrayMock(arrayMockNumber);
+                DataStructures.ArrayList actual = new DataStructures.ArrayList(a);
+                Assert.Throws<IndexOutOfRangeException>(() => actual[index] = 0);
+            }
+
 
            /* public int[,] GetExpectedMockTranspose(int n)
             {
