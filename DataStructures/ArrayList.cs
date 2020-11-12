@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Homework;
 
 
 namespace DataStructures
@@ -44,7 +43,7 @@ namespace DataStructures
             {
                 if (index > Lenght - 1 || index < 0)
                 {
-                   throw new IndexOutOfRangeException();
+                    throw new IndexOutOfRangeException();
                 }
                 return _array[index];
             }
@@ -79,7 +78,7 @@ namespace DataStructures
         {
             if (index >= Lenght || index < 0)
             {
-               throw new IndexOutOfRangeException();
+                throw new IndexOutOfRangeException();
             }
             else { IncreaseArrayByOneElement(index, value); }
 
@@ -117,7 +116,7 @@ namespace DataStructures
         {
             if (index >= Lenght || index < 0)
             {
-               throw new IndexOutOfRangeException();
+                throw new IndexOutOfRangeException();
             }
             DecreaseArrayByOneElement(index);
         }
@@ -184,7 +183,7 @@ namespace DataStructures
         public int GetIndex(int element)
         {
             int index = -1;
-            for (int i = 0; index < Lenght - 1; i++)
+            for (int i = 0; i < Lenght; i++)
             {
                 if (_array[i] == element)
                 {
@@ -298,7 +297,7 @@ namespace DataStructures
             int copyFromIndex = index + 1;
             int[] newArray = new int[_TrueLenght];
             Array.Copy(_array, newArray, _TrueLenght);
-            if (index < Lenght - 1 && index >= 0)
+            if (index < Lenght && index >= 0)
             {
                 Array.Copy(_array, copyFromIndex, newArray, index, Lenght - copyFromIndex);
             }
@@ -310,18 +309,17 @@ namespace DataStructures
 
         private void IncreaseArrayByOneElement(int index = 0, int elem = 0)
         {
-            if (index < Lenght - 1)
+            if (index < Lenght )
             {
-                int copyFromIndex = index + 1;
-                int[] newArray = new int[_TrueLenght];
+                int copyFromIndex = index;
+                int[] newArray = new int[_TrueLenght + 1];
                 Array.Copy(_array, newArray, _TrueLenght);
-                Array.Copy(_array, copyFromIndex, newArray, index, Lenght - copyFromIndex);
+                Array.Copy(_array, copyFromIndex, newArray, index + 1, Lenght - copyFromIndex);
                 Lenght++;
                 newArray[index] = elem;
                 _array = newArray;
             }
-            else IncreaseLenght(1);
-            _array[Lenght - 1] = elem;
+
         }
 
 

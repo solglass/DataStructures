@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Homework
+namespace DataStructures
 {
     public class OrderOperations
     {
