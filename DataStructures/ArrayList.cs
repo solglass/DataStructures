@@ -70,7 +70,7 @@ namespace DataStructures
 
         public void AddFirst(int value)
         {
-            IncreaseArrayByOneElement(0, value);
+            IncreaseArray(0, value);
 
         }
 
@@ -80,7 +80,7 @@ namespace DataStructures
             {
                 throw new IndexOutOfRangeException();
             }
-            else { IncreaseArrayByOneElement(index, value); }
+            else { IncreaseArray(index, value); }
 
         }
 
@@ -111,17 +111,17 @@ namespace DataStructures
 
 
         public void DeleteLast()
-        { DecreaseArrayByOneElement(Lenght - 1); }
+        { DecreaseArray(Lenght - 1); }
         public void DeleteByIndex(int index)
         {
             if (index >= Lenght || index < 0)
             {
                 throw new IndexOutOfRangeException();
             }
-            DecreaseArrayByOneElement(index);
+            DecreaseArray(index);
         }
-        public void DeleteFirst()
-        { DecreaseArrayByOneElement(0); }
+       public void DeleteFirst()
+          { DecreaseArray(0); }
 
         public void DeleteFirstByValue(int value)
         {
@@ -142,7 +142,7 @@ namespace DataStructures
         {
             if (number > 0)
             {
-                for (int i = 0; i < number; i++) { DeleteLast(); }
+                DecreaseArray(Lenght - 1, number);
             }
             else throw new ArgumentException("Cannot delete less than 1 element");
 
@@ -152,7 +152,7 @@ namespace DataStructures
         {
             if (number > 0)
             {
-                for (int i = 0; i < number; i++) { DeleteFirst(); }
+                DecreaseArray(0, number);
             }
             else throw new ArgumentException("Cannot delete less than 1 element");
 
@@ -161,9 +161,8 @@ namespace DataStructures
         {
             if (number > 0)
             {
-                if (index == 0) { DeleteFirstElements(number); }
-                else if (index == Lenght - 1) { DeleteLastElements(number); }
-                else for (int i = 0; i < number; i++) { DeleteByIndex(index); }
+
+                    DecreaseArray(index, number);
             }
             else throw new ArgumentException("Cannot delete less than 1 element");
 
@@ -191,8 +190,6 @@ namespace DataStructures
                     break;
                 }
             }
-            // if (index >= 0) return index;
-            //else throw new Exception("Element not found");
             return index;
         }
 
@@ -291,36 +288,34 @@ namespace DataStructures
             _array = newArray;
         }
 
-        private void DecreaseArrayByOneElement(int index = 0)
+        private void DecreaseArray(int index = 0, int numberOfElements = 1)
         {
+            int copyFromIndex = index + numberOfElements;
+            int numberOfElementsToCopy = Lenght - copyFromIndex + 1;
 
-            int copyFromIndex = index + 1;
-            int[] newArray = new int[_TrueLenght];
-            Array.Copy(_array, newArray, _TrueLenght);
-            if (index < Lenght && index >= 0)
+            if (index < Lenght && index >= 0  )
             {
-                Array.Copy(_array, copyFromIndex, newArray, index, Lenght - copyFromIndex);
+                if (numberOfElementsToCopy > 0)
+                { Array.Copy(_array, copyFromIndex, _array, index, numberOfElementsToCopy); }
             }
             else throw new IndexOutOfRangeException();
-            newArray[Lenght - 1] = 0;
-            Lenght--;
-            _array = newArray;
+            Lenght-= numberOfElements;
+
         }
 
-        private void IncreaseArrayByOneElement(int index = 0, int elem = 0)
+        private void IncreaseArray(int index = 0, int elem = 0)
         {
             if (index < Lenght )
             {
                 int copyFromIndex = index;
-                int[] newArray = new int[_TrueLenght + 1];
-                Array.Copy(_array, newArray, _TrueLenght);
-                Array.Copy(_array, copyFromIndex, newArray, index + 1, Lenght - copyFromIndex);
+                Array.Copy(_array, copyFromIndex, _array, index + 1, Lenght - copyFromIndex);
                 Lenght++;
-                newArray[index] = elem;
-                _array = newArray;
+                _array[index] = elem;
+
             }
 
         }
+
 
 
     }
