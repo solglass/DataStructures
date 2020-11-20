@@ -244,8 +244,18 @@ namespace NUnitTestProjectDataStructures
         public void ChangeElement(int index, int element)
         { }
 
-        public void Reverse()
-        { }
+        [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+        public void Reverse(int[] arr)
+        {
+            LinkedList expected = new LinkedList(OrderOperations.ReverseTheArray(arr));
+            LinkedList actual = new LinkedList(arr);
+            actual.Reverse();
+            Assert.AreEqual(expected, actual);
+        }
         public int FindMinElement()
         { return 0; }
 

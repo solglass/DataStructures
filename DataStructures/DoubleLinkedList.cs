@@ -209,7 +209,17 @@ namespace DataStructures
         }
 
         public void Reverse()
-        { }
+        {
+            DoubleNode crnt = _root.Next;
+            DoubleNode tmp = crnt.Previous;
+            for (int i = 0; i < Length; i++)
+            {
+                crnt.Previous = crnt.Next;
+                crnt.Next = tmp;
+                crnt = crnt.Next;
+                tmp = crnt.Previous;
+            }
+        }
         public int FindMinElement()
         {
             DoubleNode crnt = _root;

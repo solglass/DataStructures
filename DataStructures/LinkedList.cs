@@ -431,7 +431,17 @@ namespace DataStructures
         }
 
         public void Reverse()
-        { }
+        {
+            Node oldRoot = _root;
+            Node tmp;
+            while (oldRoot.Next != null)
+            {
+                tmp = oldRoot.Next;
+                oldRoot.Next = oldRoot.Next.Next;
+                tmp.Next = _root;
+                _root = tmp;
+            }
+        }
         public int FindMinElement()
         {
             Node crnt = _root;

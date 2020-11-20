@@ -246,5 +246,18 @@ namespace NUnitTestProjectDataStructures
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCase(new int[] { 1, 2, 3, 4, 5 } )]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+        public void Reverse(int[] arr)
+        {
+            DoubleLinkedList expected = new DoubleLinkedList(OrderOperations.ReverseTheArray(arr));
+            DoubleLinkedList actual = new DoubleLinkedList(arr);
+            actual.Reverse();
+            Assert.AreEqual(expected, actual);
+        }
+
     }
 }
