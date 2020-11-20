@@ -181,28 +181,30 @@ namespace DataStructures
 
         public int GetElement(int index)
         {
-            DoubleNode crnt = _root;
-            for (int i = 1; i < index; i++)
-            {
-                crnt = crnt.Next;
-            }
+            DoubleNode crnt = FindDoubleNode(index);
             return crnt.Value;
         }
 
         public int GetIndex(int element)
         {
-            return 0;
+            DoubleNode crnt = _root.Next;
+            int index = -1;
+            if (crnt.Value == element)
+            { index = 0; }
+            else
+                for (int i = 1; i < Length - 1; i++)
+                {
+                    crnt = crnt.Next;
+                    if (crnt.Value == element)
+                    { index = i; }
+                }
+            return index;
         }
         public void ChangeElement(int index, int element)
         {
             CheckBounds(index);
 
-            DoubleNode crnt = _root;
-
-            for (int i = 0; i < index; i++)
-            {
-                crnt = crnt.Next;
-            }
+            DoubleNode crnt = FindDoubleNode(index);
 
             crnt.Value = element;
 
@@ -339,11 +341,18 @@ namespace DataStructures
             DoubleNode node = _root.Next;
             if (index == 0 && Length > 0)
             { return node; }
-            else
+            else if (index <= Length / 2)
             {
                 for (int i = 1; i <= index; i++)
                 {
                     node = node.Next;
+                }
+            }
+            else
+            {
+                for (int i = Length; i >= index; i--)
+                {
+                    node = node.Previous;
                 }
             }
             return node;
