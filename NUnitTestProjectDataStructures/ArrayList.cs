@@ -57,7 +57,7 @@ namespace NUnitTestProjectDataStructures
             [TestCase(2, 12, 2)]
             [TestCase(3, 0, 3)]
             [TestCase(4, -10, 5)]
-            public void AddAtPositionTest(int arrayMockNumber, int elem, int position)
+            public void AddByIndexTest(int arrayMockNumber, int elem, int position)
             {
                 int[] e = GetExpectedMockAddAtPosition(arrayMockNumber);
                 int[] a = GetArrayMock(arrayMockNumber);
@@ -65,7 +65,7 @@ namespace NUnitTestProjectDataStructures
                 DataStructures.ArrayList expected = new ArrayList(e);
 
                 DataStructures.ArrayList actual = new ArrayList(a);
-                actual.AddAtPosition(elem, position);
+                actual.AddByIndex(elem, position);
 
                 Assert.AreEqual(expected, actual);
             }
@@ -206,7 +206,7 @@ namespace NUnitTestProjectDataStructures
                 int[] a = GetArrayMock(arrayMockNumber);
                 DataStructures.ArrayList expected = new ArrayList(OrderOperations.BubbleSortTheArrayDesc(a));
                 DataStructures.ArrayList arrayListTest = new ArrayList(a);
-                arrayListTest.SortArrayDesc();
+                arrayListTest.SortDesc();
                 Assert.AreEqual(expected, arrayListTest);
             }
 
@@ -219,7 +219,7 @@ namespace NUnitTestProjectDataStructures
                 int[] a = GetArrayMock(arrayMockNumber);
                 DataStructures.ArrayList expected = new ArrayList(OrderOperations.InsertSortTheArrayAsc(a));
                 DataStructures.ArrayList arrayListTest = new ArrayList(a);
-                arrayListTest.SortArrayAsc();
+                arrayListTest.SortAsc();
                 Assert.AreEqual(expected, arrayListTest);
             }
 
@@ -244,7 +244,7 @@ namespace NUnitTestProjectDataStructures
                 int[] a = GetArrayMock(arrayMockNumber);
                 int expected = MathOperations.FindIndexOfMaxElementOfTheArray(a);
                 DataStructures.ArrayList arrayListTest = new ArrayList(a);
-                int actual = arrayListTest.FindIndexOfMaxElementOfTheArray();
+                int actual = arrayListTest.FindIndexOfMaxElement();
                 Assert.AreEqual(expected, actual);
             }
             [TestCase(1)]
@@ -256,7 +256,7 @@ namespace NUnitTestProjectDataStructures
                 int[] a = GetArrayMock(arrayMockNumber);
                 int expected = MathOperations.FindIndexOfMinElementOfTheArray(a);
                 DataStructures.ArrayList arrayListTest = new ArrayList(a);
-                int actual = arrayListTest.FindIndexOfMinElementOfTheArray();
+                int actual = arrayListTest.FindIndexOfMinElement();
                 Assert.AreEqual(expected, actual);
             }
 
@@ -269,7 +269,7 @@ namespace NUnitTestProjectDataStructures
                 int[] a = GetArrayMock(arrayMockNumber);
                 int expected = MathOperations.FindMinElementOfTheArray(a);
                 DataStructures.ArrayList arrayListTest = new ArrayList(a);
-                int actual = arrayListTest.FindMinElementOfTheArray();
+                int actual = arrayListTest.FindMinElement();
                 Assert.AreEqual(expected, actual);
             }
             [TestCase(1)]
@@ -281,7 +281,7 @@ namespace NUnitTestProjectDataStructures
                 int[] a = GetArrayMock(arrayMockNumber);
                 int expected = MathOperations.FindMaxElementOfTheArray(a);
                 DataStructures.ArrayList arrayListTest = new ArrayList(a);
-                int actual = arrayListTest.FindMaxElementOfTheArray();
+                int actual = arrayListTest.FindMaxElement();
                 Assert.AreEqual(expected, actual);
             }
 

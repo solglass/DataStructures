@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace DataStructures
 {
-    public class ArrayList
+    public class ArrayList : IDataStructure
     {
 
-        public int Lenght { get; private set; }
+        public int Length { get; private set; }
         private int[] _array;
         private int _TrueLenght
         {
@@ -20,28 +20,28 @@ namespace DataStructures
         public ArrayList()
         {
             _array = new int[9];
-            Lenght = 0;
+            Length = 0;
         }
 
         public ArrayList(int[] array)
         {
             _array = new int[(int)(array.Length * 1.33) + 1];
             Array.Copy(array, _array, array.Length);
-            Lenght = array.Length;
+            Length = array.Length;
         }
 
         public ArrayList(int elem)
         {
             _array = new int[9];
             _array[0] = elem;
-            Lenght = 1;
+            Length = 1;
         }
 
         public int this[int index]
         {
             get
             {
-                if (index > Lenght - 1 || index < 0)
+                if (index > Length - 1 || index < 0)
                 {
                     throw new IndexOutOfRangeException();
                 }
@@ -49,7 +49,7 @@ namespace DataStructures
             }
             set
             {
-                if (index > Lenght - 1 || index < 0)
+                if (index > Length - 1 || index < 0)
                 {
                     throw new IndexOutOfRangeException();
                 }
@@ -60,12 +60,12 @@ namespace DataStructures
 
         public void Add(int value)
         {
-            if (_TrueLenght <= Lenght)
+            if (_TrueLenght <= Length)
             {
                 IncreaseLenght();
             }
-            _array[Lenght] = value;
-            Lenght++;
+            _array[Length] = value;
+            Length++;
         }
 
         public void AddFirst(int value)
@@ -74,9 +74,9 @@ namespace DataStructures
 
         }
 
-        public void AddAtPosition(int value, int index)
+        public void AddByIndex  (int value, int index)
         {
-            if (index >= Lenght || index < 0)
+            if (index >= Length || index < 0)
             {
                 throw new IndexOutOfRangeException();
             }
@@ -101,20 +101,20 @@ namespace DataStructures
             }
         }
 
-        public void AddAtPosition(int[] arr, int index)
+        public void AddByIndex( int index, int[] arr)
         {
             for (int i = arr.Length - 1; i >= 0; i--)
             {
-                AddAtPosition(arr[i], index);
+                AddByIndex(arr[i], index);
             }
         }
 
 
         public void DeleteLast()
-        { DecreaseArray(Lenght - 1); }
+        { DecreaseArray(Length - 1); }
         public void DeleteByIndex(int index)
         {
-            if (index >= Lenght || index < 0)
+            if (index >= Length || index < 0)
             {
                 throw new IndexOutOfRangeException();
             }
@@ -142,7 +142,7 @@ namespace DataStructures
         {
             if (number > 0)
             {
-                DecreaseArray(Lenght - 1, number);
+                DecreaseArray(Length - 1, number);
             }
             else throw new ArgumentException("Cannot delete less than 1 element");
 
@@ -169,11 +169,11 @@ namespace DataStructures
         }
 
         public int GetLenght()
-        { return Lenght; }
+        { return Length; }
 
         public int GetElement(int index)
         {
-            if (index < Lenght - 1 && index >= 0)
+            if (index < Length - 1 && index >= 0)
             {
                 return _array[index];
             }
@@ -182,7 +182,7 @@ namespace DataStructures
         public int GetIndex(int element)
         {
             int index = -1;
-            for (int i = 0; i < Lenght; i++)
+            for (int i = 0; i < Length; i++)
             {
                 if (_array[i] == element)
                 {
@@ -195,7 +195,7 @@ namespace DataStructures
 
         public void ChangeElement(int index, int element)
         {
-            if (index < Lenght - 1 || index >= 0)
+            if (index < Length - 1 || index >= 0)
             {
                 _array[index] = element;
             }
@@ -204,45 +204,45 @@ namespace DataStructures
 
         public void Reverse()
         {
-            int[] newArray = new int[Lenght];
-            Array.Copy(_array, newArray, Lenght);
+            int[] newArray = new int[Length];
+            Array.Copy(_array, newArray, Length);
             _array = OrderOperations.ReverseTheArray(newArray);
         }
-        public int FindMinElementOfTheArray()
+        public int FindMinElement()
         {
-            int[] newArray = new int[Lenght];
-            Array.Copy(_array, newArray, Lenght);
+            int[] newArray = new int[Length];
+            Array.Copy(_array, newArray, Length);
             return MathOperations.FindMinElementOfTheArray(newArray);
         }
-        public int FindIndexOfMinElementOfTheArray()
+        public int FindIndexOfMinElement()
         {
-            int[] newArray = new int[Lenght];
-            Array.Copy(_array, newArray, Lenght);
+            int[] newArray = new int[Length];
+            Array.Copy(_array, newArray, Length);
             return MathOperations.FindIndexOfMinElementOfTheArray(newArray);
         }
-        public int FindMaxElementOfTheArray()
+        public int FindMaxElement()
         {
-            int[] newArray = new int[Lenght];
-            Array.Copy(_array, newArray, Lenght);
+            int[] newArray = new int[Length];
+            Array.Copy(_array, newArray, Length);
             return MathOperations.FindMaxElementOfTheArray(newArray);
         }
-        public int FindIndexOfMaxElementOfTheArray()
+        public int FindIndexOfMaxElement()
         {
-            int[] newArray = new int[Lenght];
-            Array.Copy(_array, newArray, Lenght);
+            int[] newArray = new int[Length];
+            Array.Copy(_array, newArray, Length);
             return MathOperations.FindIndexOfMaxElementOfTheArray(newArray);
         }
 
-        public void SortArrayDesc()
+        public void SortDesc()
         {
-            int[] newArray = new int[Lenght];
-            Array.Copy(_array, newArray, Lenght);
+            int[] newArray = new int[Length];
+            Array.Copy(_array, newArray, Length);
             _array = OrderOperations.BubbleSortTheArrayDesc(newArray);
         }
-        public void SortArrayAsc()
+        public void SortAsc()
         {
-            int[] newArray = new int[Lenght];
-            Array.Copy(_array, newArray, Lenght);
+            int[] newArray = new int[Length];
+            Array.Copy(_array, newArray, Length);
             _array = OrderOperations.InsertSortTheArrayAsc(newArray);
         }
 
@@ -251,13 +251,13 @@ namespace DataStructures
         {
             ArrayList arrayList = (ArrayList)obj;
 
-            if (Lenght != arrayList.Lenght)
+            if (Length != arrayList.Length)
             {
                 return false;
             }
             else
             {
-                for (int i = 0; i < Lenght; i++)
+                for (int i = 0; i < Length; i++)
                 {
                     if (_array[i] != arrayList._array[i])
                     {
@@ -271,13 +271,24 @@ namespace DataStructures
         public override int GetHashCode()
         {
             return -1521134295 * (-1521134295 * (-1521134295 + EqualityComparer<Array>.Default.GetHashCode(this._array))
-                + EqualityComparer<int>.Default.GetHashCode(this.Lenght)) + EqualityComparer<int>.Default.GetHashCode(this._TrueLenght);
+                + EqualityComparer<int>.Default.GetHashCode(this.Length)) + EqualityComparer<int>.Default.GetHashCode(this._TrueLenght);
+        }
+
+        public override string ToString()
+        {
+            string s = "";
+
+            for (int i = 0; i < Length; i++)
+            {
+                s += _array[i]+ "; ";
+            }
+            return s;
         }
 
         private void IncreaseLenght(int number = 1)
         {
             int newLenght = _TrueLenght;
-            while (newLenght <= Lenght + number)
+            while (newLenght <= Length + number)
             {
                 newLenght = (int)(newLenght * 1.33 + 1);
             }
@@ -291,25 +302,25 @@ namespace DataStructures
         private void DecreaseArray(int index = 0, int numberOfElements = 1)
         {
             int copyFromIndex = index + numberOfElements;
-            int numberOfElementsToCopy = Lenght - copyFromIndex + 1;
+            int numberOfElementsToCopy = Length - copyFromIndex + 1;
 
-            if (index < Lenght && index >= 0  )
+            if (index < Length && index >= 0  )
             {
                 if (numberOfElementsToCopy > 0)
                 { Array.Copy(_array, copyFromIndex, _array, index, numberOfElementsToCopy); }
             }
             else throw new IndexOutOfRangeException();
-            Lenght-= numberOfElements;
+            Length-= numberOfElements;
 
         }
 
         private void IncreaseArray(int index = 0, int elem = 0)
         {
-            if (index < Lenght )
+            if (index < Length )
             {
                 int copyFromIndex = index;
-                Array.Copy(_array, copyFromIndex, _array, index + 1, Lenght - copyFromIndex);
-                Lenght++;
+                Array.Copy(_array, copyFromIndex, _array, index + 1, Length - copyFromIndex);
+                Length++;
                 _array[index] = elem;
 
             }
