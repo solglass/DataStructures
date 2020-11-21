@@ -31,8 +31,8 @@ namespace DataStructures
                     tmp.Next = new DoubleNode(array[i]);
                     tmp = tmp.Next;
                     tmp.Previous = previousnode;
-                    if (i == array.Length -1)
-                    { tmp.Next = _root;  }
+                    if (i == array.Length - 1)
+                    { tmp.Next = _root; }
                 }
                 _root.Previous = tmp;
 
@@ -44,6 +44,14 @@ namespace DataStructures
             }
         }
 
+        public DoubleLinkedList(int value)
+        {
+            Length = 0;
+            _root = new DoubleNode();
+            Clear();
+            AddFirst(value);
+        }
+
         public int this[int index]
         {
             get
@@ -51,7 +59,7 @@ namespace DataStructures
                 CheckBounds(index);
                 if (Length == 0)
                 { throw new IndexOutOfRangeException(); }
-                DoubleNode tmp = FindDoubleNode(index); 
+                DoubleNode tmp = FindDoubleNode(index);
                 return tmp.Value;
             }
 
@@ -81,8 +89,8 @@ namespace DataStructures
         public void AddByIndex(int index, int value)
         {
             CheckBounds(index);
-            DoubleNode node = new DoubleNode(value);
-            node.AttachBefore(FindDoubleNode(index));
+            DoubleNode DoubleNode = new DoubleNode(value);
+            DoubleNode.AttachBefore(FindDoubleNode(index));
             Length++;
 
         }
@@ -90,7 +98,7 @@ namespace DataStructures
 
         public void Add(int[] arr)
         {
-            for (int i=0; i<arr.Length;i++)
+            for (int i = 0; i < arr.Length; i++)
             {
                 Add(arr[i]);
             }
@@ -105,7 +113,7 @@ namespace DataStructures
         public void AddByIndex(int index, int[] arr)
         {
             CheckBounds(index);
-            for (int i = arr.Length-1; i >=0; i--)
+            for (int i = arr.Length - 1; i >= 0; i--)
             { AddByIndex(index, arr[i]); }
 
 
@@ -145,7 +153,8 @@ namespace DataStructures
             for (DoubleNode n = _root.Next; n != _root; n = n.Next)
             {
                 if (value == n.Value)
-                { n.Detach();
+                {
+                    n.Detach();
                     Length--;
                     break;
                 }
@@ -175,7 +184,7 @@ namespace DataStructures
         }
         public void DeleteElementsByIndex(int index, int number)
         {
-            for (int i = 0; i <number; i++)
+            for (int i = 0; i < number; i++)
             { DeleteByIndex(index); }
         }
 
@@ -224,9 +233,9 @@ namespace DataStructures
         }
         public int FindMinElement()
         {
-            DoubleNode crnt = _root;
+            DoubleNode crnt = _root.Next;
             int min = crnt.Value;
-            for (int i = 1; i < Length - 1; i++)
+            for (int i = 1; i < Length; i++)
             {
                 crnt = crnt.Next;
                 if (crnt.Value < min)
@@ -238,10 +247,10 @@ namespace DataStructures
 
         public int FindIndexOfMinElement()
         {
-            DoubleNode crnt = _root;
+            DoubleNode crnt = _root.Next;
             int minindex = 0;
             int min = crnt.Value;
-            for (int i = 1; i < Length - 1; i++)
+            for (int i = 1; i < Length; i++)
             {
                 crnt = crnt.Next;
                 if (crnt.Value < min)
@@ -257,9 +266,9 @@ namespace DataStructures
 
         public int FindMaxElement()
         {
-            DoubleNode crnt = _root;
+            DoubleNode crnt = _root.Next;
             int max = crnt.Value;
-            for (int i = 1; i < Length - 1; i++)
+            for (int i = 1; i < Length; i++)
             {
                 crnt = crnt.Next;
                 if (crnt.Value > max)
@@ -271,10 +280,10 @@ namespace DataStructures
 
         public int FindIndexOfMaxElement()
         {
-            DoubleNode crnt = _root;
+            DoubleNode crnt = _root.Next;
             int maxindex = 0;
             int max = crnt.Value;
-            for (int i = 1; i < Length - 1; i++)
+            for (int i = 1; i < Length; i++)
             {
                 crnt = crnt.Next;
                 if (crnt.Value > max)
@@ -287,11 +296,51 @@ namespace DataStructures
             return maxindex;
         }
 
-        public void SortDesc()
-        { }
-
         public void SortAsc()
-        { }
+        {
+            bool flag = true;
+            while (flag && Length > 0)
+            {
+                DoubleNode crnt = _root.Next;
+                DoubleNode nxt = _root.Next.Next;
+                flag = false;
+                while (crnt != _root && nxt != _root)
+                {
+                    while (nxt.Value < crnt.Value)
+                    {
+                        Swap(crnt, nxt);
+                        flag = true;
+                    }
+                    crnt = crnt.Next;
+                    nxt = nxt.Next;
+
+                }
+            }
+        }
+
+        public void SortDesc()
+        {
+            bool flag = true;
+            while (flag && Length > 0)
+            {
+                DoubleNode crnt = _root.Next;
+                DoubleNode nxt = _root.Next.Next;
+                flag = false;
+                while (crnt != _root && nxt != _root)
+                {
+                    while (nxt.Value > crnt.Value)
+                    {
+                        Swap(crnt, nxt);
+                        flag = true;
+                    }
+                    crnt = crnt.Next;
+                    nxt = nxt.Next;
+
+                }
+            }
+
+        }
+
 
         public override bool Equals(object obj)
         {
@@ -325,7 +374,7 @@ namespace DataStructures
             {
                 tmp = tmp.Next;
                 s += tmp.Value + ";";
-   
+
             }
             return s;
         }
@@ -338,29 +387,29 @@ namespace DataStructures
         {
 
             CheckBounds(index);
-            DoubleNode node = _root.Next;
+            DoubleNode DoubleNode = _root.Next;
             if (index == 0 && Length > 0)
-            { return node; }
+            { return DoubleNode; }
             else if (index <= Length / 2)
             {
                 for (int i = 1; i <= index; i++)
                 {
-                    node = node.Next;
+                    DoubleNode = DoubleNode.Next;
                 }
             }
             else
             {
                 for (int i = Length; i >= index; i--)
                 {
-                    node = node.Previous;
+                    DoubleNode = DoubleNode.Previous;
                 }
             }
-            return node;
+            return DoubleNode;
         }
 
         private void CheckBounds(int index)
         {
-            if (index < 0 || index > Length )
+            if (index < 0 || index > Length)
             {
                 throw new IndexOutOfRangeException();
             }
@@ -370,6 +419,13 @@ namespace DataStructures
         {
             _root.Next = _root;
             _root.Previous = _root;
+        }
+
+        private void Swap(DoubleNode crnt, DoubleNode nxt)
+        {
+            int tmp = crnt.Value;
+            crnt.Value = nxt.Value;
+            nxt.Value = tmp;
         }
 
 

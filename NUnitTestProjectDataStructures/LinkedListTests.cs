@@ -256,23 +256,91 @@ namespace NUnitTestProjectDataStructures
             actual.Reverse();
             Assert.AreEqual(expected, actual);
         }
-        public int FindMinElement()
-        { return 0; }
 
-        public int FindIndexOfMinElementO()
-        { return 0; }
+        [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+        public void FindIndexOfMaxElement(int[] arr)
+        {
+            LinkedList ll = new LinkedList(arr);
+            int expected = MathOperations.FindIndexOfMaxElementOfTheArray(arr);
+            int actual = ll.FindIndexOfMaxElement();
+            Assert.AreEqual(expected, actual);
+        }
 
+        [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+        public void FindIndexOfMinElement(int[] arr)
+        {
+            LinkedList ll = new LinkedList(arr);
+            int expected = MathOperations.FindIndexOfMinElementOfTheArray(arr);
+            int actual = ll.FindIndexOfMinElement();
+            Assert.AreEqual(expected, actual);
+        }
 
-        public int FindMaxElement()
-        { return 0; }
+        [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+        public void FindMinElementOfTheArray(int[] arr)
+        {
+            LinkedList ll = new LinkedList(arr);
+            int expected = MathOperations.FindMinElementOfTheArray(arr);
+            int actual = ll.FindMinElement();
+            Assert.AreEqual(expected, actual);
+        }
 
-        public int FindIndexOfMaxElement()
-        { return 0; }
+        [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+        public void FindMaxElementOfTheArray(int[] arr)
+        {
+            LinkedList ll = new LinkedList(arr);
+            int expected = MathOperations.FindMaxElementOfTheArray(arr);
+            int actual = ll.FindMaxElement();
+            Assert.AreEqual(expected, actual);
+        }
 
-        public void SortDesc()
-        { }
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, -1)]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 }, -2)]
+        [TestCase(new int[] { 3 }, -3)]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }, -4)]
+        public void GetElementNegativeTest(int[] arr, int index)
+        {
+            LinkedList actual = new LinkedList(arr);
+            Assert.Throws<IndexOutOfRangeException>(() => actual[index] = 0);
+        }
 
-        public void SortAsc()
-        { }
+        [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 })]
+        [TestCase(new int[] { 1, 3, 0, 5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+        public void SortDesc(int[] arr)
+        {
+            LinkedList actual = new LinkedList(arr);
+            LinkedList expected = new LinkedList(OrderOperations.BubbleSortTheArrayDesc(arr));
+            actual.SortDesc();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 })]
+        [TestCase(new int[] { 1, 3, 0, 5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+        public void SortAsc(int[] arr)
+        {
+            LinkedList actual = new LinkedList(arr);
+            LinkedList expected = new LinkedList(OrderOperations.InsertSortTheArrayAsc(arr));
+            actual.SortAsc();
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

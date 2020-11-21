@@ -33,11 +33,18 @@ namespace DataStructures
                 _root = null;
             }
         }
-
+        public LinkedList(int value)
+        {
+            Length = 1;
+            _root.Value = value;
+        }
         public int this[int index]
         {
             get
             {
+                CheckBounds(index);
+                if (Length == 0)
+                { throw new IndexOutOfRangeException(); }
                 Node tmp = _root;
                 for (int i = 0; i < index; i++)
                 {
@@ -48,6 +55,9 @@ namespace DataStructures
 
             set
             {
+                CheckBounds(index);
+                if (Length == 0)
+                { throw new IndexOutOfRangeException(); }
                 Node tmp = _root;
                 for (int i = 0; i < index; i++)
                 {
@@ -446,7 +456,7 @@ namespace DataStructures
         {
             Node crnt = _root;
             int min = crnt.Value;
-            for (int i = 1; i < Length - 1; i++)
+            for (int i = 1; i < Length; i++)
             {
                 crnt = crnt.Next;
                 if (crnt.Value < min)
@@ -461,7 +471,7 @@ namespace DataStructures
             Node crnt = _root;
             int minindex = 0;
             int min = crnt.Value;
-            for (int i = 1; i < Length - 1; i++)
+            for (int i = 1; i < Length; i++)
             {
                 crnt = crnt.Next;
                 if (crnt.Value < min)
@@ -479,7 +489,7 @@ namespace DataStructures
         {
             Node crnt = _root;
             int max = crnt.Value;
-            for (int i = 1; i < Length - 1; i++)
+            for (int i = 1; i < Length; i++)
             {
                 crnt = crnt.Next;
                 if (crnt.Value > max)
@@ -494,7 +504,7 @@ namespace DataStructures
             Node crnt = _root;
             int maxindex = 0;
             int max = crnt.Value;
-            for (int i = 1; i < Length - 1; i++)
+            for (int i = 1; i < Length; i++)
             {
                 crnt = crnt.Next;
                 if (crnt.Value > max)
@@ -508,10 +518,49 @@ namespace DataStructures
         }
 
         public void SortDesc()
-        { }
+        {
+            bool flag = true;
+            while (flag) {
+                Node crnt = _root;
+                Node nxt = _root.Next;
+                flag = false;
+                while (nxt != null)
+                {
+                    while (nxt.Value > crnt.Value)
+                    { Swap(crnt, nxt);
+                        flag = true;
+                    }
+                    crnt = crnt.Next;
+                    nxt = nxt.Next;
+
+                }
+            }
+        }
 
         public void SortAsc()
-        { }
+        {
+            bool flag = true;
+            while (flag)
+            {
+                Node crnt = _root;
+                Node nxt = _root.Next;
+                flag = false;
+                while (nxt != null)
+                {
+                    while (nxt.Value < crnt.Value)
+                    {
+                        Swap(crnt, nxt);
+                        flag = true;
+                    }
+                    crnt = crnt.Next;
+                    nxt = nxt.Next;
+
+                }
+            }
+
+        }
+         
+
 
         public override bool Equals(object obj)
         {
@@ -551,6 +600,21 @@ namespace DataStructures
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        private void CheckBounds(int index)
+        {
+            if (index < 0 || index > Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+        }
+
+        private void Swap(Node crnt, Node nxt)
+        {
+            int tmp = crnt.Value;
+            crnt.Value = nxt.Value;
+            nxt.Value = tmp;
         }
 
     }

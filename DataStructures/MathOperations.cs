@@ -130,7 +130,7 @@ namespace DataStructures
 
         public static int FindMinElementOfTheArray(int[] test)
         {
-            int min = 0;
+            int min = int.MaxValue;
             for (int i = 0; i < test.Length; i++)
             {
                 if (i == 0 || test[i] < min)
@@ -143,7 +143,7 @@ namespace DataStructures
 
         public static int FindMaxElementOfTheArray(int[] test)
         {
-            int max = 0;
+            int max = int.MinValue;
             for (int i = 0; i < test.Length; i++)
             {
                 if (test[i] > max)

@@ -22,7 +22,7 @@ namespace NUnitTestProjectDataStructures
 
             Assert.AreEqual(expected, actual);
 
-          Assert.That(actual, Is.EqualTo(expected).After(5000, 50));
+            Assert.That(actual, Is.EqualTo(expected).After(5000, 50));
         }
 
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, 0, int.MaxValue, new int[] { int.MaxValue, 2, 3, 4, 5 })]
@@ -246,7 +246,7 @@ namespace NUnitTestProjectDataStructures
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(new int[] { 1, 2, 3, 4, 5 } )]
+        [TestCase(new int[] { 1, 2, 3, 4, 5 })]
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })]
         [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 })]
         [TestCase(new int[] { -1, -2, -3, -4, -5 })]
@@ -257,6 +257,94 @@ namespace NUnitTestProjectDataStructures
             DoubleLinkedList actual = new DoubleLinkedList(arr);
             actual.Reverse();
             Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+        public void FindIndexOfMaxElement(int[] arr)
+        {
+            DoubleLinkedList ll = new DoubleLinkedList(arr);
+            int expected = MathOperations.FindIndexOfMaxElementOfTheArray(arr);
+            int actual = ll.FindIndexOfMaxElement();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+        public void FindIndexOfMinElement(int[] arr)
+        {
+            DoubleLinkedList ll = new DoubleLinkedList(arr);
+            int expected = MathOperations.FindIndexOfMinElementOfTheArray(arr);
+            int actual = ll.FindIndexOfMinElement();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+        public void FindMinElementOfTheArray(int[] arr)
+        {
+            DoubleLinkedList ll = new DoubleLinkedList(arr);
+            int expected = MathOperations.FindMinElementOfTheArray(arr);
+            int actual = ll.FindMinElement();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7 })]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+        public void FindMaxElementOfTheArray(int[] arr)
+        {
+            DoubleLinkedList ll = new DoubleLinkedList(arr);
+            int expected = MathOperations.FindMaxElementOfTheArray(arr);
+            int actual = ll.FindMaxElement();
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 })]
+        [TestCase(new int[] { 1, 3, 0, 5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+        public void SortDesc(int[] arr)
+        {
+            DoubleLinkedList actual = new DoubleLinkedList(arr);
+            DoubleLinkedList expected = new DoubleLinkedList(OrderOperations.BubbleSortTheArrayDesc(arr));
+            actual.SortDesc();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 })]
+        [TestCase(new int[] { 1, 3, 0, 5 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 })]
+        public void SortAsc(int[] arr)
+        {
+            DoubleLinkedList actual = new DoubleLinkedList(arr);
+            DoubleLinkedList expected = new DoubleLinkedList(OrderOperations.InsertSortTheArrayAsc(arr));
+            actual.SortAsc();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, -1)]
+        [TestCase(new int[] { -1, -2, -3, -4, -5 }, -2)]
+        [TestCase(new int[] { 3 }, -3)]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }, -4)]
+        public void GetElementNegativeTest(int[] arr, int index)
+        {
+            DoubleLinkedList actual = new DoubleLinkedList(arr);
+            Assert.Throws<IndexOutOfRangeException>(() => actual[index] = 0);
         }
 
     }
